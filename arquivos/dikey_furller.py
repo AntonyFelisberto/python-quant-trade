@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pylab import rcParams
+from statsmodels.tsa.stattools import adfuller
 
 rcParams["figure.figsize"]=20,10
 
@@ -45,3 +46,14 @@ plt.xlabel("Time")
 plt.ylabel("value")
 plt.legend(["Series B","Mean"])
 plt.show()
+
+def avalia_estacionaridade(x,cutoff = 0.01):
+    pvalue = adfuller(x)[1]
+    if pvalue < cutoff:
+        print("Serie é estacionaria ", x.name)
+        return True
+    else:
+        print("Serie nao é estacionaria ", x.name)
+        return False
+    
+avalia_estacionaridade(A)
